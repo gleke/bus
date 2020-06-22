@@ -3,12 +3,12 @@ package bus
 import (
 	"time"
 
-	"github.com/hexya-addons/bus/bustypes"
-	"github.com/hexya-erp/hexya/src/models"
-	"github.com/hexya-erp/hexya/src/models/fields"
-	"github.com/hexya-erp/pool/h"
-	"github.com/hexya-erp/pool/m"
-	"github.com/hexya-erp/pool/q"
+	"github.com/gleke/bus/bustypes"
+	"github.com/gleke/hexya/src/models"
+	"github.com/gleke/hexya/src/models/fields"
+	"github.com/gleke/pool/h"
+	"github.com/gleke/pool/m"
+	"github.com/gleke/pool/q"
 )
 
 var fields_Partner = map[string]models.FieldDefinition{

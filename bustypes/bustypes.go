@@ -3,7 +3,7 @@
 
 package bustypes
 
-import "github.com/hexya-erp/hexya/src/models/types"
+import "github.com/gleke/hexya/src/models/types"
 
 // A Notification is a message that is sent/received on a channel over the message bus.
 // Message must be JSON serializable.
@@ -15,9 +15,9 @@ type Notification struct {
 
 // PollParams are the parameters of a long poll
 type PollParams struct {
-	Channels []string      `json:"channels"`
-	Last     int64         `json:"last"`
-	Options  types.Context `json:"options"`
+	Channels []string       `json:"channels"`
+	Last     int64          `json:"last"`
+	Options  *types.Context `json:"options"`
 }
 
 // An IMSearchResult is returned by Partner's IMSearch method

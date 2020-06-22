@@ -3,18 +3,18 @@ package bus
 import (
 	"time"
 
-	"github.com/hexya-erp/hexya/src/models"
-	"github.com/hexya-erp/hexya/src/models/fields"
-	"github.com/hexya-erp/hexya/src/models/types"
-	"github.com/hexya-erp/hexya/src/models/types/dates"
-	"github.com/hexya-erp/pool/h"
-	"github.com/hexya-erp/pool/m"
-	"github.com/hexya-erp/pool/q"
+	"github.com/gleke/hexya/src/models"
+	"github.com/gleke/hexya/src/models/fields"
+	"github.com/gleke/hexya/src/models/types"
+	"github.com/gleke/hexya/src/models/types/dates"
+	"github.com/gleke/pool/h"
+	"github.com/gleke/pool/m"
+	"github.com/gleke/pool/q"
 )
 
 const awayTimer = 30 * time.Minute
 
-var disconnectionTimer = timeout + 5*time.Second
+var disconnectionTimer = defaultTimeout + 5*time.Second
 
 /* User Presence
 Its status is 'online', 'away' or 'offline'. This model is not

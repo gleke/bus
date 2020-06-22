@@ -1,8 +1,8 @@
 package bus
 
 import (
-	"github.com/hexya-erp/pool/h"
-	"github.com/hexya-erp/pool/m"
+	"github.com/gleke/pool/h"
+	"github.com/gleke/pool/m"
 )
 
 // PowerOn executes a vacuum of internal resources.

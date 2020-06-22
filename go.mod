@@ -1,12 +1,12 @@
-module github.com/hexya-addons/bus
+module github.com/gleke/bus
 
-go 1.14
+go 1.15
 
 require (
-	github.com/hexya-addons/base v0.1.6
-	github.com/hexya-addons/web v0.1.6
-	github.com/hexya-erp/hexya v0.1.6
-	github.com/hexya-erp/pool v1.0.2
-	github.com/lib/pq v1.2.0
-	github.com/smartystreets/goconvey v0.0.0-20190306220146-200a235640ff
+	github.com/gleke/base v0.2.1
+	github.com/gleke/hexya v0.1.9
+	github.com/gleke/pool v1.0.3
+	github.com/gleke/web v0.1.9
+	github.com/lib/pq v1.9.0
+	github.com/smartystreets/goconvey v1.6.4
 )

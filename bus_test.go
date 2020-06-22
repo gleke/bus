@@ -10,14 +10,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hexya-addons/bus/bustypes"
-	"github.com/hexya-addons/bus/controllers"
-	"github.com/hexya-addons/web/client"
-	"github.com/hexya-erp/hexya/src/models"
-	"github.com/hexya-erp/hexya/src/models/security"
-	"github.com/hexya-erp/hexya/src/server"
-	"github.com/hexya-erp/hexya/src/tests"
-	"github.com/hexya-erp/pool/h"
+	"github.com/gleke/bus/bustypes"
+	"github.com/gleke/bus/controllers"
+	"github.com/gleke/hexya/src/models"
+	"github.com/gleke/hexya/src/models/security"
+	"github.com/gleke/hexya/src/models/types"
+	"github.com/gleke/hexya/src/server"
+	"github.com/gleke/hexya/src/tests"
+	"github.com/gleke/pool/h"
+	"github.com/gleke/web/client"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -42,6 +43,7 @@ func TestBus(t *testing.T) {
 	cl4 := client.NewHexyaClient(hexyaURL.String())
 	cl4.Login("admin", "admin")
 	Convey("Testing the IM Bus", t, func() {
+		controllers.Dispatcher.Start()
 		Convey("Simple notification to several clients", func() {
 			ch2 := make(chan json.RawMessage)
 			ch3 := make(chan json.RawMessage)
@@ -136,16 +138,15 @@ func TestBus(t *testing.T) {
 			So(string(msg2), ShouldEqual, `[{"id":3,"channel":"channel1","message":{"title":"Hello World 2!"}},{"id":4,"channel":"channel1","message":{"title":"Hello World 3!"}}]`)
 		})
 		Convey("Poll timeout", func() {
-			timeout = 1 * time.Second
 			msg, err := cl2.RPC("/longpolling/poll", "call", bustypes.PollParams{
 				Channels: []string{"channel1"},
 				Last:     4,
+				Options:  types.NewContext().WithKey("timeout", 1),
 			})
 			So(err, ShouldBeNil)
 			So(string(msg), ShouldEqual, "[]")
 		})
 		Reset(func() {
-			timeout = 50 * time.Second
 			controllers.Dispatcher.Stop()
 		})
 	})

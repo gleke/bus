@@ -1,8 +1,8 @@
 package bus
 
 import (
-	"github.com/hexya-addons/base"
-	"github.com/hexya-erp/pool/h"
+	"github.com/gleke/base"
+	"github.com/gleke/pool/h"
 )
 
 func init() {

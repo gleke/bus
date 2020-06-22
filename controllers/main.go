@@ -4,14 +4,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hexya-addons/bus/bustypes"
-	web "github.com/hexya-addons/web/controllers"
-	"github.com/hexya-erp/hexya/src/controllers"
-	"github.com/hexya-erp/hexya/src/models"
-	"github.com/hexya-erp/hexya/src/models/types"
-	"github.com/hexya-erp/hexya/src/server"
-	"github.com/hexya-erp/hexya/src/tools/logging"
-	"github.com/hexya-erp/pool/h"
+	"github.com/gleke/bus/bustypes"
+	"github.com/gleke/hexya/src/controllers"
+	"github.com/gleke/hexya/src/models"
+	"github.com/gleke/hexya/src/models/types"
+	"github.com/gleke/hexya/src/server"
+	"github.com/gleke/hexya/src/tools/logging"
+	"github.com/gleke/pool/h"
+	web "github.com/gleke/web/controllers"
 )
 
 // Dispatcher is the long polling dispatching loop
@@ -22,9 +22,11 @@ var log logging.Logger
 // A Poller is a long poll dispatching loop
 type Poller interface {
 	// Poll returns the pending notification on the given channels since the last retrieved id.
-	Poll([]string, int64, types.Context) []*bustypes.Notification
+	Poll([]string, int64, *types.Context) []*bustypes.Notification
 	// Stop the dispatching loop
 	Stop()
+	// Start the dispatching loop
+	Start()
 }
 
 // Send is the endpoint for sending a message from client side
@@ -51,6 +53,9 @@ func Poll(c *server.Context) {
 		return
 	}
 	// Update the user presence
+	if params.Options == nil {
+		params.Options = types.NewContext()
+	}
 	if params.Options.HasKey("bus_inactivity") {
 		models.ExecuteInNewEnvironment(uid, func(env models.Environment) {
 			h.BusPresence().NewSet(env).Update(time.Duration(params.Options.GetInteger("bus_inactivity")) * time.Millisecond)
